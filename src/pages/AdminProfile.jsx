@@ -2,10 +2,16 @@ import React from "react";
 import { FaEdit,   FaSignOutAlt, FaUser, FaPhoneAlt, FaStar    } from "react-icons/fa";
 import useAuth from "../context/AuthContext";
 import profile from "../assets/images/profile.png";
+import { useNavigate } from "react-router-dom";
 
 const AdminProfile = () => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
+const handleLogout = () => {
+  logout();
+  navigate("/"); // → login page
+};
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8 relative">
@@ -67,7 +73,7 @@ const AdminProfile = () => {
           
 
           <div
-            onClick={logout}
+            onClick={handleLogout}
             className="flex items-center justify-between p-3 bg-gray-50 rounded-xl hover:bg-red-50 cursor-pointer transition"
           >
             <div className="flex items-center space-x-3">

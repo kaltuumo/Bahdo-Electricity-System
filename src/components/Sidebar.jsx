@@ -1,6 +1,5 @@
 import { Link, useLocation, useNavigate  } from "react-router-dom";
 import { FaTachometerAlt, FaUser, FaUserPlus, FaSignOutAlt } from "react-icons/fa";
-import logo from "../assets/images/logo.png";
 import useAuth from "../context/AuthContext";
 import { useState, useEffect } from "react";
 
@@ -8,7 +7,6 @@ import { useState, useEffect } from "react";
 const Sidebar = () => {
   const { logout } = useAuth();
   const location = useLocation();
-  const navigate = useNavigate(); // ✅ Hook-ka waa gudaha component
 
   const [activePath, setActivePath] = useState("");
   useEffect(() => {
@@ -20,10 +18,12 @@ const Sidebar = () => {
   const handleLinkClick = (path) => {
     setActivePath(path);
   };
-   const handleLogout = () => {
-  logout();          
-  navigate("/login", { replace: true }); // ✅ replace prevents going back
-};
+   const navigate = useNavigate();
+ 
+ const handleLogout = () => {
+   logout();
+   navigate("/"); // → login page
+ };
 
   return (
     <div className="w-48 bg-gradient-to-b from-white-700 via-white-500 to-white-400 text-white p-5 flex flex-col">
