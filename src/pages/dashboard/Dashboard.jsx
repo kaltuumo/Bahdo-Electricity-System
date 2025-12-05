@@ -1,5 +1,4 @@
 import React from "react";
-import Sidebar from "../../components/Sidebar";
 import { FaUsers, FaBox, FaShoppingCart, FaDollarSign } from "react-icons/fa";
 import Card from "../../components/ui/Card";
 import GenderBarChart from "../dashboard/GenderBarChart";
@@ -34,7 +33,6 @@ const Dashboard = () => {
 
   return (
   <div className="flex h-screen">
-  <Sidebar />
   <div className="flex-1 bg-gray-100 p-8 overflow-auto flex flex-col gap-6">
     <h1 className="text-2xl font-bold text-gray-700">Dashboard</h1>
 

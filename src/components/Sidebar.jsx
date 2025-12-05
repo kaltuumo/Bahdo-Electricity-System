@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate  } from "react-router-dom";
-import { FaTachometerAlt, FaUser, FaSignOutAlt, FaUserFriends, FaGlobe, FaPlus, FaMapMarkerAlt  } from "react-icons/fa";
+import { FaTachometerAlt, FaUser, FaSignOutAlt, FaUserFriends, FaGlobe, FaPlus, FaMapMarkerAlt, FaHome  } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext"; 
 import { useState, useEffect } from "react";
 
@@ -105,6 +105,14 @@ const Sidebar = () => {
       ${activePath === "/area-list" ? "bg-blue-900 shadow-md" : "hover:bg-blue-800"}`}
   >
     <FaMapMarkerAlt     className="text-black-500 opacity-70" /> Area
+  </Link>
+  <Link
+    to="/house-list"
+    onClick={() => handleLinkClick("/house-list")}
+    className={`flex items-center gap-2 px-3 py-2 rounded transition text-sm text-black
+      ${activePath === "/house-list" ? "bg-blue-900 shadow-md" : "hover:bg-blue-800"}`}
+  >
+    <FaHome className="text-black-500 opacity-70" /> Houses
   </Link>
 </li>
 

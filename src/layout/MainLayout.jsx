@@ -1,10 +1,13 @@
 import Sidebar from "../components/Sidebar";
+import { Outlet } from "react-router-dom";
 
-const MainLayout = ({ children }) => {
+const MainLayout = () => {
   return (
-    <div className="layout">
+    <div className="layout flex">
       <Sidebar />
-      <div className="content">{children}</div>
+      <div className="content flex-1 p-4">
+        <Outlet />
+      </div>
     </div>
   );
 };

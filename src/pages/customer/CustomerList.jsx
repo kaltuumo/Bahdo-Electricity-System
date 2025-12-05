@@ -175,6 +175,13 @@ const CustomerList = () => {
                 </td>
 
                 <td className="px-4 py-3 border flex gap-3 text-xl">
+                 <span
+                    className="cursor-pointer text-orange-600"
+                    onClick={() => navigate("/house-regsiter", { state: { house: c } })}
+                  >
+                        🏠
+
+                  </span>
                   <span
                     className="cursor-pointer text-orange-600"
                     onClick={() => navigate("/customer-update", { state: { customer: c } })}

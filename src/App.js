@@ -2,11 +2,14 @@ import React from "react";
 import './index.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+
+import MainLayout from "./layout/MainLayout";   // <-- muhiim!!
+
 import Login from "./pages/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
 import UserProfile from "./pages/UserProfile";
 import UserRegistration from "./pages/UserRegistration";
-import UserList from  "./pages/user/UserList";
+import UserList from "./pages/user/UserList";
 import UpdateUser from "./pages/user/updateUser";
 import ZoneList from "./pages/zone/ZoneList";
 import UpdateZone from "./pages/zone/UpdateZone";
@@ -14,27 +17,36 @@ import CustomerList from "./pages/customer/CustomerList";
 import UpdateCustomer from "./pages/customer/updateCustomer";
 import AreaList from "./pages/area/AreaList";
 import UpdateArea from "./pages/area/updateArea";
+import HouseRegister from "./pages/house/HouseRegister";
+import HouseList from "./pages/house/HouseList";
+
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+
+          {/* LOGIN: No sidebar */}
           <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/user-profile" element={<UserProfile />} />
-          <Route path="/user-register" element={<UserRegistration />} />
-          <Route path="/user-list" element={<UserList/>} />
-          <Route path="/user-update" element={<UpdateUser/>} />
-          <Route path="/zone-list" element={<ZoneList/>} />
-          <Route path="/zone-update" element={<UpdateZone/>} />
-          <Route path="/customer-list" element={<CustomerList/>} />
-          <Route path="/customer-update" element={<UpdateCustomer/>} />
-          <Route path="/area-list" element={<AreaList/>} />
-          <Route path="/area-update" element={<UpdateArea/>} />
 
+          {/* ALL PAGES WITH SIDEBAR */}
+          <Route element={<MainLayout />}>
 
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/user-profile" element={<UserProfile />} />
+            <Route path="/user-register" element={<UserRegistration />} />
+            <Route path="/user-list" element={<UserList />} />
+            <Route path="/user-update" element={<UpdateUser />} />
+            <Route path="/zone-list" element={<ZoneList />} />
+            <Route path="/zone-update" element={<UpdateZone />} />
+            <Route path="/customer-list" element={<CustomerList />} />
+            <Route path="/customer-update" element={<UpdateCustomer />} />
+            <Route path="/area-list" element={<AreaList />} />
+            <Route path="/area-update" element={<UpdateArea />} />
+            <Route path="/house-regsiter" element={<HouseRegister />} />
+            <Route path="/house-list" element={<HouseList />} />
 
-          
+          </Route>
 
         </Routes>
       </BrowserRouter>
