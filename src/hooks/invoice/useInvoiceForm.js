@@ -13,29 +13,30 @@ export default function useInvoiceForm(initialValues = {}) {
   const [status, setStatus] = useState(initialValues.status || "Unpaid");
   const [houseNo, setHouseNo] = useState(initialValues.houseNo || "");
   const [watchNo, setWatchNo] = useState(initialValues.watchNo || "");
-  
+
+  // Editable KWH
+  const [kwhUsed, setKwhUsed] = useState(initialValues.kwhUsed || 0);
+ 
   // Calculated fields
-  const [kwhUsed, setKwhUsed] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const [required, setRequired] = useState(0);
   const [remaining, setRemaining] = useState(0);
 
   const [loading, setLoading] = useState(false);
 
-  const UNIT_PRICE = 1; // 1 currency per kWh, adjust as needed
+  const UNIT_PRICE = 1;
 
-  // Auto-calculate fields whenever relevant values change
+  // Auto-calculate totals whenever kwhUsed, discount, or paid change
   useEffect(() => {
-    const kwh = afterRead - beforeRead;
-    const total = kwh * UNIT_PRICE;
-    const req = total - discount;
-    const rem = req - paid;
+     const usedUnits = afterRead - beforeRead; // KWH used
+    const total = Number((usedUnits * kwhUsed).toFixed(2)); // Total before discount
+    const req = Number((total - discount).toFixed(2));       // Total after discount
+    const rem = Number((req - paid).toFixed(2))
 
-    setKwhUsed(kwh);
     setTotalAmount(total);
     setRequired(req);
     setRemaining(rem);
-  }, [beforeRead, afterRead, discount, paid]);
+  }, [kwhUsed, discount, paid]);
 
   const resetForm = () => {
     setFullname("");
@@ -69,7 +70,8 @@ export default function useInvoiceForm(initialValues = {}) {
     status, setStatus,
     houseNo, setHouseNo,
     watchNo, setWatchNo,
-    kwhUsed, totalAmount, required, remaining,
+    kwhUsed, setKwhUsed,  // ✅ Important: export setKwhUsed
+    totalAmount, required, remaining,
     loading, setLoading,
     resetForm
   };

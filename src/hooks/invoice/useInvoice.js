@@ -36,7 +36,7 @@ export default function useHouses() {
 //   };
 
   useEffect(() => {
-    fetchElectrics();
+    fetchInvoices();
   }, []);
 
   return { invoices, setInvoices, loading, setLoading, fetchInvoices };
