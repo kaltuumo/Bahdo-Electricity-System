@@ -1,18 +1,17 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode"; // Using named export in latest version
+import { jwtDecode } from "jwt-decode";   // ✔ sax
 import api from "../api/api";
 import { ApiConstants } from "../api/ApiConstants";
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  // ✅ Initialize state from localStorage
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("user")) || null
   );
 
-  // Set axios authorization header
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -21,22 +20,21 @@ export const AuthProvider = ({ children }) => {
     }
   }, [token]);
 
-  // Login function
-  const login = async (email, password) => {
+  // LOGIN USING userCode INSTEAD OF EMAIL
+  const login = async (userCode, password) => {
     try {
-     const res = await api.post(`${ApiConstants.userEndpoint}/login`, {
-      email,
-      password,
-    });
+      const res = await api.post(`${ApiConstants.userEndpoint}/login`, {
+        userCode,
+        password,
+      });
 
+      const decoded = jwtDecode(res.data.token); // ✔ sax
 
-      // Decode JWT to get user info
-      const decoded = jwtDecode(res.data.token);
       const userData = {
         userId: decoded.userId,
         fullname: decoded.fullname,
-        email: decoded.email,
         phone: decoded.phone,
+        userCode: decoded.userCode,
       };
 
       setToken(res.data.token);
@@ -48,27 +46,22 @@ export const AuthProvider = ({ children }) => {
       throw err;
     }
   };
-  
-   const register = async (fullname, phone, email, password) => {  
-     try {
+
+  const register = async (fullname, phone, email, password) => {
+    try {
       const res = await api.post(`${ApiConstants.userEndpoint}/signup`, {
-      fullname,
-      phone,
-      email,
-      password,
-    });
+        fullname,
+        phone,
+        email,
+        password,
+      });
+      return res.data;
+    } catch (err) {
+      console.error("REGISTER ERROR:", err.response?.data || err.message);
+      throw err;
+    }
+  };
 
-    // Haddii backend uu success message soo celiyo kaliya
-    return res.data;
-
-  } catch (err) {
-    console.error("REGISTER ERROR:", err.response?.data || err.message);
-    throw err;
-  }
-};
-
-
-  // Logout function
   const logout = () => {
     setToken(null);
     setUser(null);

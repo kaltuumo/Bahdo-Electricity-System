@@ -9,13 +9,13 @@ const Login = () => {
   const { login } = useAuth(); // ← sax
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
+  const [userCode, setuserCode] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
   e.preventDefault();
   try {
-    await login(email, password); // sug login-ka dhamaado
+    await login(userCode, password); // sug login-ka dhamaado
     navigate("/dashboard");
   } catch (err) {
     console.log(err);
@@ -37,10 +37,10 @@ const Login = () => {
           <Label text="Email" /> Email
 
           <InputField
-           type="email"
-            placeholder="example@gmail.com"
-            value={email}
-            onChange={(e)=>setEmail(e.target.value)}
+           type="useCode"
+            placeholder="Enter UserCode"
+            value={userCode}
+            onChange={(e)=>setuserCode(e.target.value)}
            />
           </div>
 

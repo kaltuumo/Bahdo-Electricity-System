@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 
 const Sidebar = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const location = useLocation();
 
   const [activePath, setActivePath] = useState("");
@@ -137,13 +137,18 @@ const Sidebar = () => {
 
       </ul>
 
-      {/* Logout */}
-      <button
-        onClick={handleLogout}
-        className="flex items-center gap-4 px-3 py-2 mt-5 bg-red-500 hover:bg-red-600 rounded transition"
-      >
-        <FaSignOutAlt /> Logout
-      </button>
+                   {/* User Info */}
+
+{/* Logout Button */}
+<button
+  onClick={handleLogout}
+  className="flex items-center gap-2 px-3 py-2 mt-3 bg-red-500 hover:bg-red-600 rounded transition text-white"
+>
+  <FaSignOutAlt className="ml-0" /> {/* logout icon */}
+  <span className="font-medium">Logout</span>
+</button>
+
+
     </div>
   );
 };
